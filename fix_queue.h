@@ -25,14 +25,14 @@ extern "C"{
 #define FIX_QUEUE_SIZE_MAX 100
 #endif //FIX_QUEUE_SIZE_MAX
 
-struct at_queue_s
+struct fix_queue_s
 {
 	void *queue[FIX_QUEUE_SIZE_MAX];
 	unsigned int ifront;
 	unsigned int iback;
 };
 
-typedef struct at_queue_s fix_queue;
+typedef struct fix_queue_s fix_queue;
 
 #ifdef __cplusplus
 }
