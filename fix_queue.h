@@ -32,7 +32,7 @@ struct at_queue_s
 	unsigned int iback;
 };
 
-typedef struct at_queue_s Queue;
+typedef struct at_queue_s fix_queue;
 
 #ifdef __cplusplus
 }
@@ -49,7 +49,7 @@ extern "C"{
 #endif //_cplusplus
 
 // Resets the queue to an initial state. You could use this to 'empty-out' the queue
-void fix_queue_init(Queue *q)
+void fix_queue_init(fix_queue *q)
 {
 	q->ifront = -1;
 	q->iback = -1;
@@ -62,7 +62,7 @@ void fix_queue_init(Queue *q)
 #endif //FIX_QUEUE_ZERO_INIT
 }
 
-void fix_queue_enqueue(Queue *q, void *newi)
+void fix_queue_enqueue(fix_queue *q, void *newi)
 {
 	if((q->ifront == q->iback + 1) || (q->ifront == 0 && q->iback == FIX_QUEUE_SIZE_MAX - 1)) return;
 
@@ -73,7 +73,7 @@ void fix_queue_enqueue(Queue *q, void *newi)
 	q->queue[q->iback] = newi;
 }
 
-void *fix_queue_dequeue(Queue *q)
+void *fix_queue_dequeue(fix_queue *q)
 {
 	if(q->ifront == -1) return 0;
 
