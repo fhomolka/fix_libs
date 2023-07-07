@@ -17,6 +17,10 @@
 #ifndef FIX_STACK_H 
 #define FIX_STACK_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif //_cplusplus
+
 #ifndef FIX_STACK_SIZE_MAX
 #define FIX_STACK_SIZE_MAX 100
 #endif //FIX_STACK_SIZE_MAX
@@ -31,10 +35,18 @@ typedef struct fix_stack_s fix_stack;
 
 void fix_stack_init(fix_stack *s);
 
+#ifdef __cplusplus
+}
+#endif //__cplusplus
+
 #endif //FIX_STACK_H
 
 
 #ifdef FIX_STACK_IMPL
+
+#ifdef __cplusplus
+extern "C"{
+#endif //_cplusplus
 
 void fix_stack_init(fix_stack *s)
 {
@@ -63,5 +75,9 @@ void *fix_stack_pop(fix_stack *s)
 	s->itop -= 1;
 	return element;
 }
+
+#ifdef __cplusplus
+}
+#endif //__cplusplus
 
 #endif //FIX_STACK_IMPL
