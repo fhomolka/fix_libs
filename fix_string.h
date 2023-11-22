@@ -55,11 +55,6 @@ fix_string fix_string_substring(fix_string *str, unsigned int start, unsigned in
 	return substr;
 }
 
-void fix_string_print(fix_string *str)
-{
-	printf("%s\n", str->data);
-}
-
 void fix_string_stupid_print(fix_string *str)
 {
 	for (unsigned int i = 0; i < str->len; ++i)
