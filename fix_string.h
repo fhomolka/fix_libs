@@ -64,14 +64,14 @@ void fix_string_stupid_print(fix_string *str)
 {
 	for (unsigned int i = 0; i < str->len; ++i)
 	{
-		printf("%c", str->data[i]);
+		putc(str->data[i], stdout);
 	}
 }
 
 void fix_string_stupid_println(fix_string *str)
 {
 	fix_string_stupid_print(str);
-	printf("\n");
+	putc('\n', stdout);
 }
 
 #endif //FIX_STRING_IMPL
