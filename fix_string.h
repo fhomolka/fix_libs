@@ -21,6 +21,9 @@ typedef struct fix_string_s fix_string;
 
 fix_string cstring_to_fix_string(const char* text);
 
+fix_string fix_string_clone(fix_string *first);
+void fix_string_clone_free(fix_string *str);
+
 int fix_string_compare(fix_string *first, fix_string *second);
 int fix_string_obj_compare(fix_string *first, fix_string *second);
 fix_string fix_string_substring(fix_string *str, unsigned int start, unsigned int len);
@@ -31,6 +34,7 @@ void fix_string_print(char *fmt, ...);
 #ifdef FIX_STRING_IMPL
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 fix_string cstring_to_fix_string(const char* text)
 {
@@ -39,6 +43,24 @@ fix_string cstring_to_fix_string(const char* text)
 	new_string.len = strlen(text);
 
 	return new_string;
+}
+
+fix_string fix_string_clone(fix_string *first)
+{
+	fix_string clone;
+	clone.len = first->len;
+
+	clone.data = malloc(sizeof(clone.len));
+
+	strcpy(clone.data, first->data);
+
+	return clone;
+}
+
+void fix_string_clone_free(fix_string *str)
+{
+	free(str->data);
+	str->len = 0;
 }
 
 int fix_string_compare(fix_string *first, fix_string *second)
