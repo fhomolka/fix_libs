@@ -19,6 +19,13 @@ struct fix_string_s
 
 typedef struct fix_string_s fix_string;
 
+fix_string cstring_to_fix_string(const char* text);
+
+int fix_string_compare(fix_string *first, fix_string *second);
+int fix_string_obj_compare(fix_string *first, fix_string *second);
+fix_string fix_string_substring(fix_string *str, unsigned int start, unsigned int len);
+void fix_string_print(char *fmt, ...);
+
 #endif //FIX_STRING_H
 
 #ifdef FIX_STRING_IMPL
