@@ -50,7 +50,7 @@ fix_string fix_string_clone(fix_string *first)
 	fix_string clone;
 	clone.len = first->len;
 
-	clone.data = malloc(sizeof(clone.len));
+	clone.data = malloc(clone.len * sizeof(char));
 
 	strcpy(clone.data, first->data);
 
