@@ -55,18 +55,85 @@ fix_string fix_string_substring(fix_string *str, unsigned int start, unsigned in
 	return substr;
 }
 
-void fix_string_stupid_print(fix_string *str)
-{
-	for (unsigned int i = 0; i < str->len; ++i)
-	{
-		putc(str->data[i], stdout);
-	}
-}
+#include <stdarg.h>
 
-void fix_string_stupid_println(fix_string *str)
+void fix_string_print(char *fmt, ...)
 {
-	fix_string_stupid_print(str);
-	putc('\n', stdout);
+	//TODO(Fix): Buffer and puts buffer
+	va_list args;
+	va_start(args, fmt);
+
+	while(*fmt)
+	{
+		if (*fmt != '%')
+		{
+			putc(*fmt, stdout);
+			fmt += 1;
+			continue;
+		}
+
+		fmt += 1;
+		switch(*fmt)
+		{
+			case '%':
+			{
+				putc('%', stdout);
+				break;
+			}
+			case 'c':
+			{
+				int c = va_arg(args, int);
+				putc(c, stdout);
+				break;
+			}
+			case 'd':
+			case 'i':
+			{
+				int n = va_arg(args, int);
+				char buf[64];
+				int len = snprintf(buf, sizeof(buf), "%i", n);
+
+				for (int i = 0; i < len; ++i)
+				{
+					putc(buf[i], stdout);
+				}
+				break;
+			}
+			case 'f':
+			{
+				double n = va_arg(args, double);
+				char buf[64];
+				int len = snprintf(buf, sizeof(buf), "%f", n);
+				for (int i = 0; i < len; ++i)
+				{
+					putc(buf[i], stdout);
+				}
+				break;
+			}
+			case 's': //cstring
+			{
+				char *str = va_arg(args, char*);
+				
+				while(*str)
+				{
+					putc(*str, stdout);
+					str += 1;
+				}
+				break;
+			}
+			case 'z': //fix_string
+			{
+				fix_string str = va_arg(args, fix_string);
+				for (unsigned int i = 0; i < str.len; ++i)
+				{
+					putc(str.data[i], stdout);
+				}
+			}
+		}
+		fmt += 1;
+	}
+
+	va_end(args);
 }
 
 #endif //FIX_STRING_IMPL
