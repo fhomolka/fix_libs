@@ -38,6 +38,8 @@ int fix_string_find_any_char_from_left(fix_string *str, char *chars);
 int fix_string_find_any_char_from_right(fix_string *str, char *chars);
 int fix_string_find_cstring_from_left(fix_string *str, const char *cstr);
 int fix_string_find_cstring_from_right(fix_string *str, const char *cstr);
+int fix_string_find_string_from_left(fix_string *str, fix_string *substr);
+int fix_string_find_string_from_right(fix_string *str, fix_string *substr);
 
 void fix_string_print(char *fmt, ...);
 
@@ -202,6 +204,28 @@ int fix_string_find_cstring_from_right(fix_string *str, const char *cstr)
 	for (unsigned int i = str->len - 1; i - len >= 0; --i)
 	{
 		if (memcmp(str->data + i, cstr, len) == 0) return i;
+	}
+
+	return -1;
+}
+
+int fix_string_find_string_from_left(fix_string *str, fix_string *substr)
+{
+	if (str->len < substr->len) return -1;
+	for (unsigned int i = 0; i + substr->len <= str->len; ++i)
+	{
+		if (memcmp(str->data + i, substr->data, substr->len) == 0) return i;
+	}
+
+	return -1;
+}
+
+int fix_string_find_string_from_right(fix_string *str, fix_string *substr)
+{
+	if (str->len < substr->len) return -1;
+	for (unsigned int i = str->len - 1; substr->len >= 0; --i)
+	{
+		if (memcmp(str->data + i, substr->data, substr->len) == 0) return i;
 	}
 
 	return -1;
