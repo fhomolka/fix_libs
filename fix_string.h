@@ -44,6 +44,10 @@ int fix_string_find_any_cstring_from_right(fix_string *str, char **cstrings, uns
 int fix_string_find_string_from_left(fix_string *str, fix_string *substr);
 int fix_string_find_string_from_right(fix_string *str, fix_string *substr);
 
+int fix_string_contains_char(fix_string *str, char c);
+int fix_string_contains_cstring(fix_string *str, char *cstr);
+int fix_string_contains_string(fix_string *str, fix_string *substr);
+
 void fix_string_print(char *fmt, ...);
 
 #endif //FIX_STRING_H
@@ -263,6 +267,21 @@ int fix_string_find_string_from_right(fix_string *str, fix_string *substr)
 	}
 
 	return -1;
+}
+
+int fix_string_contains_char(fix_string *str, char c)
+{
+	return fix_string_find_char_from_left(str, c) != -1;
+}
+
+int fix_string_contains_cstring(fix_string *str, char *cstr)
+{
+	return fix_string_find_cstring_from_left(str, cstr) != -1;
+}
+
+int fix_string_contains_string(fix_string *str, fix_string *substr)
+{
+	return fix_string_find_string_from_left(str, substr) != -1;
 }
 
 #include <stdarg.h>
