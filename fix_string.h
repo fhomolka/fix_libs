@@ -201,7 +201,7 @@ int fix_string_find_cstring_from_right(fix_string *str, const char *cstr)
 {
 	unsigned int len = strlen(cstr);
 	if (str->len < len) return -1;
-	for (unsigned int i = str->len - 1; i - len >= 0; --i)
+	for (int i = str->len - 1; i - len >= 0; --i) //Throws a warning, but works incorrectly when len is casted to int
 	{
 		if (memcmp(str->data + i, cstr, len) == 0) return i;
 	}
@@ -223,7 +223,7 @@ int fix_string_find_string_from_left(fix_string *str, fix_string *substr)
 int fix_string_find_string_from_right(fix_string *str, fix_string *substr)
 {
 	if (str->len < substr->len) return -1;
-	for (unsigned int i = str->len - 1; substr->len >= 0; --i)
+	for (int i = str->len - 1; substr->len >= 0; --i) //Throws a warning, but works incorrectly when len is casted to int
 	{
 		if (memcmp(str->data + i, substr->data, substr->len) == 0) return i;
 	}
