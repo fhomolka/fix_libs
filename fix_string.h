@@ -27,6 +27,16 @@ void fix_string_clone_free(fix_string *str);
 int fix_string_compare(fix_string *first, fix_string *second);
 int fix_string_obj_compare(fix_string *first, fix_string *second);
 fix_string fix_string_substring(fix_string *str, unsigned int start, unsigned int len);
+
+unsigned int fix_string_count_char(fix_string *str, char c);
+
+fix_string *fix_string_split_by_char(fix_string *str, char delimiter, /* out */ unsigned int *count);
+
+int fix_string_find_char_from_left(fix_string *str, char c);
+int fix_string_find_char_from_right(fix_string *str, char c);
+int fix_string_find_any_char_from_left(fix_string *str, fix_string *chars);
+int fix_string_find_any_char_from_right(fix_string *str, fix_string *chars);
+
 void fix_string_print(char *fmt, ...);
 
 #endif //FIX_STRING_H
@@ -82,6 +92,91 @@ fix_string fix_string_substring(fix_string *str, unsigned int start, unsigned in
 	substr.len = len;
 
 	return substr;
+}
+
+unsigned int fix_string_count_char(fix_string *str, char c)
+{
+	unsigned int count = 0;
+
+	for (unsigned int i = 0; i < str->len; ++i)
+	{
+		if (str->data[i] == c) count += 1;
+	}
+
+	return count;
+}
+
+fix_string *fix_string_split_by_char(fix_string *str, char delimiter, /* out */ unsigned int *count)
+{
+	*count = fix_string_count_char(str, delimiter);
+	if (str->data[str->len - 1] != delimiter)
+	{
+		*count += 1;
+	}
+
+	fix_string *substrings = malloc(*count * sizeof(fix_string));
+
+	int filled_count = 0;
+	int last_delim = -1;
+
+	for (unsigned int i = 0; i < str->len; ++i)
+	{
+		if (str->data[i] != delimiter) continue;
+
+		substrings[filled_count] = fix_string_substring(str, last_delim + 1, i - last_delim - 1);
+		filled_count += 1;
+
+		last_delim = i;
+	}
+
+	if (str->data[str->len - 1] != delimiter)
+	{
+		substrings[filled_count] = fix_string_substring(str, last_delim + 1, str->len - 1 - last_delim);
+	}
+	
+	return substrings;
+}
+
+int fix_string_find_char_from_left(fix_string *str, char c)
+{
+	for (unsigned int i = 0; i < str->len; ++i)
+	{
+		if (str->data[i] == c) return i;
+	}
+
+	return -1;
+}
+
+int fix_string_find_char_from_right(fix_string *str, char c)
+{
+	for (int i = str->len - 1; i >= 0; --i)
+	{
+		if (str->data[i] == c) return i;
+	}
+
+	return -1;
+}
+
+int fix_string_find_any_char_from_left(fix_string *str, fix_string *chars)
+{
+	int leftmost_idx = -1;
+	for (unsigned int i = 0; i < chars->len; ++i)
+	{
+		int ret = fix_string_find_char_from_left(str, chars->data[i]);
+		if (ret != -1 && (leftmost_idx == -1 || leftmost_idx > ret)) leftmost_idx = ret;
+	}
+	return leftmost_idx;
+}
+
+int fix_string_find_any_char_from_right(fix_string *str, fix_string *chars)
+{
+	int rightmost_idx = -1;
+	for (unsigned int i = 0; i < chars->len; ++i)
+	{
+		int ret = fix_string_find_char_from_right(str, chars->data[i]);
+		if (rightmost_idx < ret) rightmost_idx = ret;
+	}
+	return rightmost_idx;
 }
 
 #include <stdarg.h>
