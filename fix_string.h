@@ -38,6 +38,8 @@ int fix_string_find_any_char_from_left(fix_string *str, char *chars);
 int fix_string_find_any_char_from_right(fix_string *str, char *chars);
 int fix_string_find_cstring_from_left(fix_string *str, const char *cstr);
 int fix_string_find_cstring_from_right(fix_string *str, const char *cstr);
+int fix_string_find_any_cstring_from_left(fix_string *str, char **cstrings, unsigned int count);
+int fix_string_find_any_cstring_from_right(fix_string *str, char **cstrings, unsigned int count);
 int fix_string_find_string_from_left(fix_string *str, fix_string *substr);
 int fix_string_find_string_from_right(fix_string *str, fix_string *substr);
 
@@ -207,6 +209,28 @@ int fix_string_find_cstring_from_right(fix_string *str, const char *cstr)
 	}
 
 	return -1;
+}
+
+int fix_string_find_any_cstring_from_left(fix_string *str, char **cstrings, unsigned int count)
+{
+	int leftmost_idx = -1;
+	for (unsigned int i = 0; i < count; ++i)
+	{
+		int ret = fix_string_find_cstring_from_left(str, cstrings[i]);
+		if (ret != -1 && (leftmost_idx == -1 || leftmost_idx > ret)) leftmost_idx = ret;
+	}
+	return leftmost_idx;
+}
+
+int fix_string_find_any_cstring_from_right(fix_string *str, char **cstrings, unsigned int count)
+{
+	int rightmost_idx = -1;
+	for (unsigned int i = 0; i < count; ++i)
+	{
+		int ret = fix_string_find_cstring_from_right(str, cstrings[i]);
+		if (rightmost_idx < ret) rightmost_idx = ret;
+	}
+	return rightmost_idx;
 }
 
 int fix_string_find_string_from_left(fix_string *str, fix_string *substr)
