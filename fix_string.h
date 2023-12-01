@@ -20,6 +20,7 @@ struct fix_string_s
 typedef struct fix_string_s fix_string;
 
 fix_string cstring_to_fix_string(const char* text);
+const char *fix_string_to_cstring(fix_string *str);
 
 fix_string fix_string_clone(fix_string *first);
 void fix_string_clone_free(fix_string *str);
@@ -59,6 +60,15 @@ fix_string cstring_to_fix_string(const char* text)
 	new_string.len = strlen(text);
 
 	return new_string;
+}
+
+const char *fix_string_to_cstring(fix_string *str)
+{
+	char *cstring = malloc(str->len + 1 * sizeof(char)); // +1 for null-term
+	strcpy(cstring, str.data);
+	cstring[str->len] = '\0';
+
+	return cstring;
 }
 
 fix_string fix_string_clone(fix_string *first)
