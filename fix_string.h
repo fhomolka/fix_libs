@@ -53,6 +53,9 @@ fix_string fix_string_trim_from_left_by_char(fix_string *str, char c);
 
 /* Returns a substring trimmed to before the instance of the character */
 fix_string fix_string_trim_from_right_by_char(fix_string *str, char c);
+
+/* Attempts to parse string as an int */
+int fix_string_to_int(fix_string *str);
 void fix_string_print(char *fmt, ...);
 
 #endif //FIX_STRING_H
@@ -310,6 +313,31 @@ fix_string fix_string_trim_from_right_by_char(fix_string *str, char c)
 
 	return new_string;
 }
+
+static inline int _char_to_int(char c)
+{
+	if (c < '0' || c > '9') return 0;
+	return (int)(c - '0');
+}
+
+int fix_string_to_int(fix_string *str)
+{
+	int num = 0;
+	int start_idx = 0;
+
+	if(str->data[0] == '-') start_idx = 1;
+
+	for (int i = start_idx; i < str->len; ++i)
+	{
+		int n = _char_to_int(str->data[i]);
+		num = (num * 10) + n;
+	}
+
+	if (start_idx) num = -num;
+
+	return num;
+}
+
 #include <stdarg.h>
 
 void fix_string_print(char *fmt, ...)
