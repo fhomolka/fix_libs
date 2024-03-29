@@ -48,6 +48,11 @@ int fix_string_contains_char(fix_string *str, char c);
 int fix_string_contains_cstring(fix_string *str, char *cstr);
 int fix_string_contains_string(fix_string *str, fix_string *substr);
 
+/* Returns a substring trimmed to before the instance of the character */
+fix_string fix_string_trim_from_left_by_char(fix_string *str, char c);
+
+/* Returns a substring trimmed to before the instance of the character */
+fix_string fix_string_trim_from_right_by_char(fix_string *str, char c);
 void fix_string_print(char *fmt, ...);
 
 #endif //FIX_STRING_H
@@ -285,6 +290,26 @@ int fix_string_contains_string(fix_string *str, fix_string *substr)
 	return fix_string_find_string_from_left(str, substr) != -1;
 }
 
+fix_string fix_string_trim_from_left_by_char(fix_string *str, char c)
+{
+	int ofs = fix_string_find_char_from_right(str, c);
+	if(ofs < 0) return *str;
+	fix_string new_string = *str;
+	new_string.len -= ofs;
+	new_string.data += ofs;
+
+	return new_string;
+}
+
+fix_string fix_string_trim_from_right_by_char(fix_string *str, char c)
+{
+	int idx = fix_string_find_char_from_left(str, c);
+	if(idx < 0) return *str;
+	fix_string new_string = *str;
+	new_string.len = idx;
+
+	return new_string;
+}
 #include <stdarg.h>
 
 void fix_string_print(char *fmt, ...)
