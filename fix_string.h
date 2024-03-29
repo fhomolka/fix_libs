@@ -69,7 +69,7 @@ fix_string cstring_to_fix_string(const char* text)
 const char *fix_string_to_cstring(fix_string *str)
 {
 	char *cstring = malloc(str->len + 1 * sizeof(char)); // +1 for null-term
-	strcpy(cstring, str->data);
+	memcpy(cstring, str->data, str->len);
 	cstring[str->len] = '\0';
 
 	return cstring;
