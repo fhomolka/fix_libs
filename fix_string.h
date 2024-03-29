@@ -129,6 +129,7 @@ unsigned int fix_string_count_char(fix_string *str, char c)
 fix_string *fix_string_split_by_char(fix_string *str, char delimiter, /* out */ unsigned int *count)
 {
 	*count = fix_string_count_char(str, delimiter);
+	if(*count == 0) return NULL;
 	if (str->data[str->len - 1] != delimiter)
 	{
 		*count += 1;
