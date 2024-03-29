@@ -25,27 +25,44 @@ const char *fix_string_to_cstring(fix_string *str);
 fix_string fix_string_clone(fix_string *first);
 void fix_string_clone_free(fix_string *str);
 
+/* Are strings the same */
 int fix_string_compare(fix_string *first, fix_string *second);
+/* Are these the same fix_string */
 int fix_string_obj_compare(fix_string *first, fix_string *second);
 fix_string fix_string_substring(fix_string *str, unsigned int start, unsigned int len);
 
+/* Returns how many times a character appears */
 unsigned int fix_string_count_char(fix_string *str, char c);
 
+/* Returns an array of substrings split by delimiter */
 fix_string *fix_string_split_by_char(fix_string *str, char delimiter, /* out */ unsigned int *count);
 
+/* Finds the first instance of the character from left */
 int fix_string_find_char_from_left(fix_string *str, char c);
+/* Finds the first instance of the character from right */
 int fix_string_find_char_from_right(fix_string *str, char c);
+/* Finds all instances of the character from left */
 int fix_string_find_any_char_from_left(fix_string *str, char *chars);
+/* Finds all instances of the character from right */
 int fix_string_find_any_char_from_right(fix_string *str, char *chars);
+/* Finds the first instance of cstring substring from left */
 int fix_string_find_cstring_from_left(fix_string *str, const char *cstr);
+/* Finds the first instance of cstring substring from right */
 int fix_string_find_cstring_from_right(fix_string *str, const char *cstr);
+/* Finds all instances of cstring substring from left */
 int fix_string_find_any_cstring_from_left(fix_string *str, char **cstrings, unsigned int count);
+/* Finds all instances of cstring substring from right */
 int fix_string_find_any_cstring_from_right(fix_string *str, char **cstrings, unsigned int count);
+/* Finds all instances of fix_string substring from left */
 int fix_string_find_string_from_left(fix_string *str, fix_string *substr);
+/* Finds all instances of fix_string substring from right */
 int fix_string_find_string_from_right(fix_string *str, fix_string *substr);
 
+/* Returns whether string contains a character */
 int fix_string_contains_char(fix_string *str, char c);
+/* Returns whether string contains the cstring substring */
 int fix_string_contains_cstring(fix_string *str, char *cstr);
+/* Returns whether string contains fix_string substring */
 int fix_string_contains_string(fix_string *str, fix_string *substr);
 
 /* Returns a substring trimmed to before the instance of the character */
@@ -56,6 +73,8 @@ fix_string fix_string_trim_from_right_by_char(fix_string *str, char c);
 
 /* Attempts to parse string as an int */
 int fix_string_to_int(fix_string *str);
+
+/* Printf-like print that accepts fix_string as %z in fmt */
 void fix_string_print(char *fmt, ...);
 
 #endif //FIX_STRING_H
