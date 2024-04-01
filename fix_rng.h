@@ -26,6 +26,8 @@ signed char fix_rng_get_i8(fix_rng_state *s);
 float fix_rng_get_f32(fix_rng_state *s);
 /* Grabs a random "bool" and progresses the state */
 int fix_rng_get_bool(fix_rng_state *s);
+/* Grabs a random number between included min and included max */
+int fix_rng_get_range(fix_rng_state *s, int min, int max);
 #endif 
 
 #ifdef FIX_RNG_IMPL
@@ -56,6 +58,11 @@ float fix_rng_get_f32(fix_rng_state *s)
 int fix_rng_get_bool(fix_rng_state *s)
 {
 	return fix_rng_get_f32(s) >= 0.5f;
+}
+
+int fix_rng_get_range(fix_rng_state *s, int min, int max)
+{
+	return (fix_rng_get_u8(s) % max) + min;
 }
 
 unsigned char fix_rng_table[256] = 
