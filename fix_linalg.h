@@ -47,47 +47,47 @@ typedef union fix_vec2_u fix_vec2;
 static inline fix_vec2 fix_vec2_add(fix_vec2 lhs, fix_vec2 rhs)
 {
 	return (fix_vec2)
-	{
+	{{
 		lhs.x + rhs.x,
 		lhs.y + rhs.y
-	};
+	}};
 }
 
 static inline fix_vec2 fix_vec2_sub(fix_vec2 lhs, fix_vec2 rhs)
 {
 	return (fix_vec2)
-	{
+	{{
 		lhs.x - rhs.x,
 		lhs.y - rhs.y
-	};
+	}};
 }
 
 static inline fix_vec2 fix_vec2_mul(fix_vec2 lhs, fix_vec2 rhs)
 {
 	return (fix_vec2)
-	{
+	{{
 		lhs.x * rhs.x,
 		lhs.y * rhs.y
-	};
+	}};
 }
 
 static inline fix_vec2 fix_vec2_mulf(fix_vec2 lhs, float rhs)
 {
 	return (fix_vec2)
-	{
+	{{
 		lhs.x * rhs,
 		lhs.y * rhs
-	};
+	}};
 }
 #define fix_vec2_scale fix_vec2_mulf
 
 static inline fix_vec2 fix_vec2_div(fix_vec2 lhs, fix_vec2 rhs)
 {
 	return (fix_vec2)
-	{
+	{{
 		lhs.x / rhs.x,
 		lhs.y / rhs.y
-	};
+	}};
 }
 
 static inline float fix_vec2_dot(fix_vec2 lhs, fix_vec2 rhs)
@@ -117,10 +117,10 @@ static inline fix_vec2 fix_vec2_rot(fix_vec2 vec, float angle)
 	float cos_angle = fix_cosf(angle);
 
 	return (fix_vec2)
-	{
+	{{
 		vec.x * cos_angle - vec.y * sin_angle,
 		vec.x * sin_angle + vec.y * cos_angle
-	};
+	}};
 }
 
 // Vec3
@@ -147,52 +147,52 @@ typedef union fix_vec3_u fix_rgb;
 static inline fix_vec3 fix_vec3_add(fix_vec3 lhs, fix_vec3 rhs)
 {
 	return (fix_vec3)
-	{
+	{{
 		lhs.x + rhs.x,
 		lhs.y + rhs.y,
 		lhs.z + rhs.z
-	};
+	}};
 }
 
 static inline fix_vec3 fix_vec3_sub(fix_vec3 lhs, fix_vec3 rhs)
 {
 	return (fix_vec3)
-	{
+	{{
 		lhs.x - rhs.x,
 		lhs.y - rhs.y,
 		lhs.z - rhs.z
-	};
+	}};
 }
 
 static inline fix_vec3 fix_vec3_mul(fix_vec3 lhs, fix_vec3 rhs)
 {
 	return (fix_vec3)
-	{
+	{{
 		lhs.x * rhs.x,
 		lhs.y * rhs.y,
 		lhs.z * rhs.z
-	};
+	}};
 }
 
 static inline fix_vec3 fix_vec3_mulf(fix_vec3 lhs, float rhs)
 {
 	return (fix_vec3)
-	{
+	{{
 		lhs.x * rhs,
 		lhs.y * rhs,
 		lhs.z * rhs
-	};
+	}};
 }
 #define fix_vec3_scale fix_vec3_mulf
 
 static inline fix_vec3 fix_vec3_div(fix_vec3 lhs, fix_vec3 rhs)
 {
 	return (fix_vec3)
-	{
+	{{
 		lhs.x / rhs.x,
 		lhs.y / rhs.y,
 		lhs.z / rhs.z
-	};
+	}};
 }
 
 static inline float fix_vec3_dot(fix_vec3 lhs, fix_vec3 rhs)
@@ -219,11 +219,11 @@ static inline float fix_vec3_distance(fix_vec3 lhs, fix_vec3 rhs)
 static inline fix_vec3 fix_vec3_cross(fix_vec3 lhs, fix_vec3 rhs)
 {
 	return (fix_vec3)
-	{
+	{{
 		lhs.y * rhs.z - lhs.z * rhs.y,
 		lhs.z * rhs.x - lhs.x * rhs.z,
 		lhs.x * rhs.y - lhs.y * rhs.y,
-	};
+	}};
 }
 
 // Vec4
@@ -250,57 +250,57 @@ typedef union fix_vec4_u fix_rgba;
 static inline fix_vec4 fix_vec4_add(fix_vec4 lhs, fix_vec4 rhs)
 {
 	return (fix_vec4)
-	{
+	{{
 		lhs.x + rhs.x,
 		lhs.y + rhs.y,
 		lhs.z + rhs.z,
 		lhs.w + rhs.w
-	};
+	}};
 }
 
 static inline fix_vec4 fix_vec4_sub(fix_vec4 lhs, fix_vec4 rhs)
 {
 	return (fix_vec4)
-	{
+	{{
 		lhs.x - rhs.x,
 		lhs.y - rhs.y,
 		lhs.z - rhs.z,
 		lhs.w - rhs.w
-	};
+	}};
 }
 
 static inline fix_vec4 fix_vec4_mul(fix_vec4 lhs, fix_vec4 rhs)
 {
 	return (fix_vec4)
-	{
+	{{
 		lhs.x * rhs.x,
 		lhs.y * rhs.y,
 		lhs.z * rhs.z,
 		lhs.w * rhs.w
-	};
+	}};
 }
 
 static inline fix_vec4 fix_vec4_mulf(fix_vec4 lhs, float rhs)
 {
 	return (fix_vec4)
-	{
+	{{
 		lhs.x * rhs,
 		lhs.y * rhs,
 		lhs.z * rhs,
 		lhs.w * rhs,
-	};
+	}};
 }
 #define fix_vec4_scale fix_vec4_mulf
 
 static inline fix_vec4 fix_vec4_div(fix_vec4 lhs, fix_vec4 rhs)
 {
 	return (fix_vec4)
-	{
+	{{
 		lhs.x / rhs.x,
 		lhs.y / rhs.y,
 		lhs.z / rhs.z,
 		lhs.w / rhs.w
-	};
+	}};
 }
 
 static inline float fix_vec4_dot(fix_vec4 lhs, fix_vec4 rhs)
@@ -342,29 +342,29 @@ typedef union fix_mat4x4_u fix_mat4;
 static inline fix_mat4 fix_mat4_add(fix_mat4 lhs, fix_mat4 rhs)
 {
 	return (fix_mat4)
-	{
+	{{
 		lhs.m[0]  + rhs.m[0],  lhs.m[1]  + rhs.m[1],  lhs.m[2]  + rhs.m[2],  lhs.m[3]  + rhs.m[3],
 		lhs.m[4]  + rhs.m[4],  lhs.m[5]  + rhs.m[5],  lhs.m[6]  + rhs.m[6],  lhs.m[7]  + rhs.m[7],
 		lhs.m[8]  + rhs.m[8],  lhs.m[9]  + rhs.m[9],  lhs.m[10] + rhs.m[10], lhs.m[11] + rhs.m[11],
 		lhs.m[12] + rhs.m[12], lhs.m[13] + rhs.m[13], lhs.m[14] + rhs.m[14], lhs.m[15] + rhs.m[15],
-	};
+	}};
 }
 
 static inline fix_mat4 fix_mat4_sub(fix_mat4 lhs, fix_mat4 rhs)
 {
 	return (fix_mat4)
-	{
+	{{
 		lhs.m[0]  - rhs.m[0],  lhs.m[1]  - rhs.m[1],  lhs.m[2]  - rhs.m[2],  lhs.m[3]  - rhs.m[3],
 		lhs.m[4]  - rhs.m[4],  lhs.m[5]  - rhs.m[5],  lhs.m[6]  - rhs.m[6],  lhs.m[7]  - rhs.m[7],
 		lhs.m[8]  - rhs.m[8],  lhs.m[9]  - rhs.m[9],  lhs.m[10] - rhs.m[10], lhs.m[11] - rhs.m[11],
 		lhs.m[12] - rhs.m[12], lhs.m[13] - rhs.m[13], lhs.m[14] - rhs.m[14], lhs.m[15] - rhs.m[15],
-	};
+	}};
 }
 
 static inline fix_mat4 fix_mat4_mul(fix_mat4 lhs, fix_mat4 rhs)
 {
 	return (fix_mat4)
-	{
+	{{
 		lhs.m[0] * rhs.m[0] + lhs.m[1] * rhs.m[4] + lhs.m[2] * rhs.m[8]  + lhs.m[3] * rhs.m[12],
 		lhs.m[0] * rhs.m[1] + lhs.m[1] * rhs.m[5] + lhs.m[2] * rhs.m[9]  + lhs.m[3] * rhs.m[13],
 		lhs.m[0] * rhs.m[2] + lhs.m[1] * rhs.m[6] + lhs.m[2] * rhs.m[10] + lhs.m[3] * rhs.m[14],
@@ -384,18 +384,18 @@ static inline fix_mat4 fix_mat4_mul(fix_mat4 lhs, fix_mat4 rhs)
 		lhs.m[12] * rhs.m[1] + lhs.m[13] * rhs.m[5] + lhs.m[14] * rhs.m[9]  + lhs.m[15] * rhs.m[13],
 		lhs.m[12] * rhs.m[2] + lhs.m[13] * rhs.m[6] + lhs.m[14] * rhs.m[10] + lhs.m[15] * rhs.m[14],
 		lhs.m[12] * rhs.m[3] + lhs.m[13] * rhs.m[7] + lhs.m[14] * rhs.m[11] + lhs.m[15] * rhs.m[15],
-	};
+	}};
 }
 
 static inline fix_mat4 fix_mat4_mulf(fix_mat4 lhs, float rhs)
 {
 	return (fix_mat4)
-	{
+	{{
 		lhs.m[0]  * rhs, lhs.m[1]  * rhs, lhs.m[2]  * rhs, lhs.m[3]  * rhs,
 		lhs.m[4]  * rhs, lhs.m[5]  * rhs, lhs.m[6]  * rhs, lhs.m[7]  * rhs,
 		lhs.m[8]  * rhs, lhs.m[9]  * rhs, lhs.m[10] * rhs, lhs.m[11] * rhs,
 		lhs.m[12] * rhs, lhs.m[13] * rhs, lhs.m[14] * rhs, lhs.m[15] * rhs,
-	};
+	}};
 }
 #define fix_mat4_scale fix_mat4_mulf
 
@@ -420,10 +420,10 @@ static inline int fix_rect_aabb_check(fix_rect first, fix_rect second)
 static inline fix_vec2 rect_centre(fix_rect rect)
 {
 	return (fix_vec2)
-	{
+	{{
 		(rect.x + rect.x + rect.w) * 0.5f,
 		(rect.y + rect.y + rect.h) * 0.5f
-	};
+	}};
 }
 
 
