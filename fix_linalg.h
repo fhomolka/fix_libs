@@ -400,6 +400,17 @@ static inline fix_mat4 fix_mat4_mulf(fix_mat4 lhs, float rhs)
 }
 #define fix_mat4_scale fix_mat4_mulf
 
+static inline fix_mat4 fix_mat4_ortho(float left, float right, float bottom, float top, float near, float far)
+{
+	return (fix_mat4)
+	{{
+		2.0f / (right - left), 0.0f,				  0.0f,				   -(right + left) / (right - left),
+		0.0f,				   2.0f / (top - bottom), 0.0f,				   -(top + bottom) / (top - bottom),
+		0.0f,				   0.0f,				 -2.0f / (far - near), -(far + near) / (far - near),
+		0.0f,				   0.0f,				  0.0f,					1.0f,
+	}};
+}
+
 // Extras
 
 //Rect
@@ -426,7 +437,6 @@ static inline fix_vec2 rect_centre(fix_rect rect)
 		(rect.y + rect.y + rect.h) * 0.5f
 	}};
 }
-
 
 #ifdef _cplusplus
 }
