@@ -142,6 +142,12 @@ static inline void fix_freelist_free(fix_freelist *fl, void *mem)
 	if(node == fl->first_node) fl->first_node = node->next;
 }
 
+static inline void fix_freelist_free_all(fix_freelist *fl)
+{
+	fl->first_node = NULL;
+	fl->last_node = NULL;
+}
+
 #ifdef __cplusplus
 }
 #endif //_cplusplus
