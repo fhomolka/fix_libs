@@ -325,6 +325,7 @@ static inline float fix_vec4_distance(fix_vec4 lhs, fix_vec4 rhs)
 }
 
 // Vec4
+// Mat4
 union fix_mat4x4_u 
 {
 	struct {float m1,  m2,  m3,  m4,
@@ -332,7 +333,7 @@ union fix_mat4x4_u
 				  m9,  m10, m11, m12,
 				  m13, m14, m15, m16;};
 
-	fix_vec4 rows[4];
+	fix_vec4 columns[4];
 	float fields[4][4];
 	float m[4 * 4];
 };
