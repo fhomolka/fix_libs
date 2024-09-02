@@ -40,7 +40,7 @@ static inline void fix_arena_init(fix_arena *arena, unsigned int size)
 }
 
 //Frees the malloc'ed memory, and sets all arena info to zero
-static inline void fix_arena_destory(fix_arena *arena)
+static inline void fix_arena_destroy(fix_arena *arena)
 {
 	free(arena->memory);
 	arena->size = 0;
