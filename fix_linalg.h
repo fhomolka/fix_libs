@@ -324,7 +324,123 @@ static inline float fix_vec4_distance(fix_vec4 lhs, fix_vec4 rhs)
 	return fix_vec4_mag(fix_vec4_sub(rhs, lhs));
 }
 
-// Vec4
+
+// Mat2
+union fix_mat2x2_u
+{
+	struct {float m1,  m2,  
+				  m3,  m4;};
+
+	fix_vec2 columns[2];
+	float fields[2][2];
+	float m[2 * 2];
+};
+typedef union fix_mat2x2_u fix_mat2x2;
+typedef union fix_mat2x2_u fix_mat2;
+
+static inline fix_mat2 fix_mat2_add(fix_mat2 lhs, fix_mat2 rhs)
+{
+	return (fix_mat2)
+	{{
+		lhs.m[0] + rhs.m[0], lhs.m[1] + rhs.m[1],  
+		lhs.m[2] + rhs.m[2], lhs.m[3] + rhs.m[3],
+	}};
+}
+
+static inline fix_mat2 fix_mat2_sub(fix_mat2 lhs, fix_mat2 rhs)
+{
+	return (fix_mat2)
+	{{
+		lhs.m[0] - rhs.m[0], lhs.m[1] - rhs.m[1],  
+		lhs.m[2] - rhs.m[2], lhs.m[3] - rhs.m[3],
+	}};
+}
+
+static inline fix_mat2 fix_mat2_mul(fix_mat2 lhs, fix_mat2 rhs)
+{
+	return (fix_mat2)
+	{{
+		lhs.m[0] * rhs.m[0] + lhs.m[1] * rhs.m[2],
+		lhs.m[0] * rhs.m[1] + lhs.m[1] * rhs.m[3],
+
+		lhs.m[2] * rhs.m[0] + lhs.m[3] * rhs.m[2],
+		lhs.m[2] * rhs.m[1] + lhs.m[3] * rhs.m[3],
+	}};
+}
+
+static inline fix_mat2 fix_mat2_mulf(fix_mat2 lhs, float rhs)
+{
+	return (fix_mat2)
+	{{
+		lhs.m[0] * rhs, lhs.m[1] * rhs,  
+		lhs.m[2] * rhs, lhs.m[3] * rhs,
+	}};
+}
+#define fix_mat2_scale fix_mat2_mulf
+
+// Mat3
+union fix_mat3x3_u 
+{
+	struct {float m1,  m2,  m3,  
+				  m4,  m5,  m6,  
+				  m7,  m8,  m9;};
+
+	fix_vec3 columns[3];
+	float fields[3][3];
+	float m[3 * 3];
+};
+typedef union fix_mat3x3_u fix_mat3x3;
+typedef union fix_mat3x3_u fix_mat3;
+
+static inline fix_mat3 fix_mat3_add(fix_mat3 lhs, fix_mat3 rhs)
+{
+	return (fix_mat3)
+	{{
+		lhs.m[0] + rhs.m[0], lhs.m[1] + rhs.m[1], lhs.m[2] + rhs.m[2],
+		lhs.m[3] + rhs.m[3], lhs.m[4] + rhs.m[4], lhs.m[5] + rhs.m[5],
+		lhs.m[6] + rhs.m[6], lhs.m[7] + rhs.m[7], lhs.m[8] + rhs.m[8],
+	}};
+}
+
+static inline fix_mat3 fix_mat3_sub(fix_mat3 lhs, fix_mat3 rhs)
+{
+	return (fix_mat3)
+	{{
+		lhs.m[0] - rhs.m[0], lhs.m[1] - rhs.m[1], lhs.m[2] - rhs.m[2],
+		lhs.m[3] - rhs.m[3], lhs.m[4] - rhs.m[4], lhs.m[5] - rhs.m[5],
+		lhs.m[6] - rhs.m[6], lhs.m[7] - rhs.m[7], lhs.m[8] - rhs.m[8],
+	}};
+}
+
+static inline fix_mat3 fix_mat3_mul(fix_mat3 lhs, fix_mat3 rhs)
+{
+	return (fix_mat3)
+	{{
+		lhs.m[0] * rhs.m[0] + lhs.m[1] * rhs.m[3] + lhs.m[2] * rhs.m[6],
+		lhs.m[0] * rhs.m[1] + lhs.m[1] * rhs.m[4] + lhs.m[2] * rhs.m[7],
+		lhs.m[0] * rhs.m[2] + lhs.m[1] * rhs.m[5] + lhs.m[2] * rhs.m[8],
+
+		lhs.m[3] * rhs.m[0] + lhs.m[4] * rhs.m[3] + lhs.m[5] * rhs.m[6],
+		lhs.m[3] * rhs.m[1] + lhs.m[4] * rhs.m[4] + lhs.m[5] * rhs.m[7],
+		lhs.m[3] * rhs.m[2] + lhs.m[4] * rhs.m[5] + lhs.m[5] * rhs.m[8],
+
+		lhs.m[6] * rhs.m[0] + lhs.m[7] * rhs.m[3] + lhs.m[8] * rhs.m[6],
+		lhs.m[6] * rhs.m[1] + lhs.m[7] * rhs.m[4] + lhs.m[8] * rhs.m[7],
+		lhs.m[6] * rhs.m[2] + lhs.m[7] * rhs.m[5] + lhs.m[8] * rhs.m[8],
+	}};
+}
+
+static inline fix_mat3 fix_mat3_mulf(fix_mat3 lhs, float rhs)
+{
+	return (fix_mat3)
+	{{
+		lhs.m[0] * rhs,  lhs.m[1] * rhs,  lhs.m[2] * rhs,
+		lhs.m[3] * rhs,  lhs.m[4] * rhs,  lhs.m[5] * rhs,
+		lhs.m[6] * rhs,  lhs.m[7] * rhs,  lhs.m[8] * rhs,
+	}};
+}
+#define fix_mat3_scale fix_mat3_mulf
+
 // Mat4
 union fix_mat4x4_u 
 {
