@@ -527,6 +527,18 @@ static inline fix_mat4 fix_mat4_ortho(float left, float right, float bottom, flo
 	}};
 }
 
+static inline fix_mat4 fix_mat4_perspective(float fov_y, float aspect, float near, float far)
+{
+	float f = 1.0f / tanf(fov_y / 2.0f);
+	return (fix_mat4)
+	{{
+		f / aspect,	0.0f, 0.0f,							0.0f,
+		0.0f,		f,	  0.0f,							0.0f,
+		0.0f,		0.0f, (near + far) / (near - far), -2.0f * ((near * far) / (near - far)),
+		0.0f,		0.0f, -1.0f, 						0.0f,
+	}};
+}
+
 // Extras
 
 //Rect
