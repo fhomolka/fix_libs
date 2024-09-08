@@ -65,6 +65,8 @@ void fix_draw_pixel(fix_screen screen, unsigned int x, unsigned int y, uint32_t 
 void fix_draw_rect(fix_screen screen, int x, int y, int w, int h, uint32_t color);
 /* Draws a circle with the given colour */
 void fix_draw_circle(fix_screen screen, int center_x, int center_y, unsigned int radius, uint32_t color);
+/* Draws an ellipse with the given colour */
+void fix_draw_ellipse(fix_screen screen, int center_x, int center_y, int radius_x, int radius_y, uint32_t color);
 /* Draws the triangle with the given colour */
 void fix_draw_triangle(fix_screen screen, int first_x, int first_y, int second_x, int second_y, int third_x, int third_y, uint32_t color);
 /* Draws the triangle with the given colour. Accepts vertex data packed into an array */
@@ -190,6 +192,30 @@ void fix_draw_circle(fix_screen screen, int center_x, int center_y, unsigned int
 			int distance_to_y = y - center_y;
 
 			if(distance_to_x * distance_to_x + distance_to_y * distance_to_y > rr) continue;
+
+			screen.pixels[x + screen.width * y] = color;
+		}
+	}
+}
+
+void fix_draw_ellipse(fix_screen screen, int center_x, int center_y, int radius_x, int radius_y, uint32_t color)
+{
+	int rxrx = radius_x * radius_x;
+	int ryry = radius_y * radius_y;
+	int rxrxryry = rxrx * ryry;
+
+	for(int y = center_y - (int)radius_y; y < center_y + (int)radius_y; y += 1)
+	{
+		if (y < 0) continue; //We can't draw above the screen
+		if (y >= (int)screen.height) break; //We can't draw below the screen
+		for(int x = center_x - (int)radius_x; x < center_x + (int)radius_x; x += 1)
+		{
+			if (x < 0) continue; //We can't draw left of the screen
+			if (x >= (int)screen.width) break; //We can't draw right of the screen
+			int distance_to_x = x - center_x;
+			int distance_to_y = y - center_y;
+
+			if(distance_to_x * distance_to_x * ryry + distance_to_y * distance_to_y * rxrx > rxrxryry) continue;
 
 			screen.pixels[x + screen.width * y] = color;
 		}
