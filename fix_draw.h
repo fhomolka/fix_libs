@@ -76,6 +76,8 @@ void fix_draw_quad(fix_screen screen, int data[8], uint32_t color);
 /* Draws a polygon using triangles. Vertices should be arranged as {x0, y0, x1, y1, ... xn, yn} and should be a multiple of 2.
 Indices should treat the vertex array as if it's filled with Vec2 types e.g.: value 2 will retrieve x2, y2 pair, and should be a multiple of 3 */
 void fix_draw_poly(fix_screen screen, int vertices[], unsigned int indices[], unsigned int index_count, uint32_t color);
+/* Draws an image onto the screen. Can scale up or down */
+void fix_draw_image(fix_screen screen, int x, int y, int w, int h, fix_screen src);
 
 #ifndef FIX_DRAW_NO_COLORDEFS
 //ABGR
@@ -384,6 +386,29 @@ void fix_draw_poly(fix_screen screen, int vertices[], unsigned int indices[], un
 			vertices[indices[i + 1] * 2], vertices[indices[i + 1] * 2 + 1], 
 			vertices[indices[i + 2] * 2], vertices[indices[i + 2] * 2 + 1], 
 			color);
+	}
+}
+
+void fix_draw_image(fix_screen screen, int x, int y, int w, int h, fix_screen src)
+{
+	int x0 = x;
+	int y0 = y;
+
+	for(int y = y0; y < y0 + h; y += 1)
+	{
+		if (y < 0) continue;
+		if (y >= (int)screen.height) break; 
+		int src_y = (y - y0) * src.height / h;
+		for(int x = x0; x < x0 + w; x += 1)
+		{
+			if (x < 0) continue; 
+			if (x >= (int)screen.width) break; 
+
+			int src_x = (x - x0) * src.width / w;
+
+			if(src.pixels[src_x + src.width * src_y] == 0) continue; //HACK(Fix): This is a quick Hack-around to skip blank pixels, todo blending
+			screen.pixels[x + screen.width * y] = src.pixels[src_x + src.width * src_y];
+		}
 	}
 }
 
