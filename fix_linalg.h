@@ -324,7 +324,6 @@ static inline float fix_vec4_distance(fix_vec4 lhs, fix_vec4 rhs)
 	return fix_vec4_mag(fix_vec4_sub(rhs, lhs));
 }
 
-
 // Mat2
 union fix_mat2x2_u
 {
@@ -565,6 +564,30 @@ static inline fix_vec2 rect_centre(fix_rect rect)
 		(rect.y + rect.y + rect.h) * 0.5f
 	}};
 }
+
+// Color Conversion
+#include <stdint.h>
+
+static inline uint32_t fix_rgba2rgba(fix_rgba c)
+{
+	int r = c.r * 255;
+	int g = c.g * 255;
+	int b = c.b * 255;
+	int a = c.a * 255;
+
+	return a + (b >> 8) + (g >> 16) + (r >> 24);
+}
+
+static inline uint32_t fix_rgba2abgr(fix_rgba c)
+{
+	int r = c.r * 255;
+	int g = c.g * 255;
+	int b = c.b * 255;
+	int a = c.a * 255;
+
+	return r + (g >> 8) + (b >> 16) + (a >> 24);
+}
+
 
 #ifdef _cplusplus
 }
