@@ -93,7 +93,7 @@ void fix_draw_poly(fix_screen screen, int vertices[], unsigned int indices[], un
 #define RGBA_GREEN   0xFF00FF00
 #define RGBA_BLUE    0xFFFF0000
 #define RGBA_BLACK   0xFF000000
-#define RGBA_WHITE   0xFF000000
+#define RGBA_WHITE   0xFFFFFFFF
 #define RGBA_CLEAR   0x00000000
 #define RGBA_YELLOW  0xFF00FFFF
 #define RGBA_MAGENTA 0xFFFF00FF
