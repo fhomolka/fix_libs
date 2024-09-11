@@ -30,8 +30,24 @@ extern "C" {
 #define fix_sinf sinf
 #define fix_cosf cosf
 
+#ifdef __USE_GNU
 #define fix_PIf M_PIf
-#endif
+#else //__USE_GNU
+#define fix_PIf ((float)M_PI)
+#endif //__USE_GNU
+#endif //FIX_LINALG_CUSTOM_MATH
+
+// Extra
+// DEG-RAD conversion
+static inline float fix_deg2rad(float degrees)
+{
+	return degrees * (fix_PIf / 180.0f);
+}
+
+static inline float fix_rad2deg(float radians)
+{
+	return radians * (180.0f / fix_PIf);
+}
 
 // Vec2
 union fix_vec2_u 
