@@ -584,7 +584,7 @@ static inline fix_vec2 rect_centre(fix_rect rect)
 // Color Conversion
 #include <stdint.h>
 
-static inline uint32_t fix_rgba2rgba(fix_rgba c)
+static inline uint32_t fix_rgba2rgba32(fix_rgba c)
 {
 	int r = c.r * 255;
 	int g = c.g * 255;
@@ -594,7 +594,7 @@ static inline uint32_t fix_rgba2rgba(fix_rgba c)
 	return a + (b >> 8) + (g >> 16) + (r >> 24);
 }
 
-static inline uint32_t fix_rgba2abgr(fix_rgba c)
+static inline uint32_t fix_rgba2abgr32(fix_rgba c)
 {
 	int r = c.r * 255;
 	int g = c.g * 255;
