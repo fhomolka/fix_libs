@@ -34,6 +34,7 @@ struct fix_screen_s
 {
 	unsigned int width;
 	unsigned int height;
+	unsigned int stride;
 	uint32_t *pixels;
 };
 typedef struct fix_screen_s fix_screen;
@@ -133,6 +134,18 @@ fix_screen fix_draw_make_screen(uint32_t *pixels, unsigned int width, unsigned i
 		.pixels = pixels,
 		.width = width,
 		.height = height,
+		.stride = width
+	};
+}
+
+fix_screen fix_draw_slice_screen(fix_screen screen, int x, int y, int w, int h)
+{
+	return(fix_screen)
+	{
+		.pixels = &screen.pixels[x + screen.stride * y],
+		.width = w,
+		.height = h,
+		.stride = screen.stride,
 	};
 }
 
@@ -142,7 +155,7 @@ void fix_draw_clear(fix_screen screen, uint32_t color)
 	{
 		for(unsigned int x = 0; x < screen.width; x += 1)
 		{
-			screen.pixels[x + screen.width * y] = color;
+			screen.pixels[x + screen.stride * y] = color;
 		}
 	}
 }
@@ -150,7 +163,7 @@ void fix_draw_clear(fix_screen screen, uint32_t color)
 //NOTE(Fix): This is so simple, it could likely go into the header and have it be static inline
 void fix_draw_pixel(fix_screen screen, unsigned int x, unsigned int y, uint32_t color)
 {
-	screen.pixels[x + screen.width * y] = color;
+	screen.pixels[x + screen.stride * y] = color;
 }
 
 void fix_draw_rect(fix_screen screen, int x, int y, int w, int h, uint32_t color)
@@ -167,7 +180,7 @@ void fix_draw_rect(fix_screen screen, int x, int y, int w, int h, uint32_t color
 			if (x < 0) continue; //We can't draw left of the screen, but we may enter the screen
 			if (x >= (int)screen.width) break; //We can't draw right of the screen, and we're not going back
 
-			screen.pixels[x + screen.width * y] = color;
+			screen.pixels[x + screen.stride * y] = color;
 		}
 	}
 }
@@ -195,7 +208,7 @@ void fix_draw_circle(fix_screen screen, int center_x, int center_y, unsigned int
 
 			if(distance_to_x * distance_to_x + distance_to_y * distance_to_y > rr) continue;
 
-			screen.pixels[x + screen.width * y] = color;
+			screen.pixels[x + screen.stride * y] = color;
 		}
 	}
 }
@@ -219,7 +232,7 @@ void fix_draw_ellipse(fix_screen screen, int center_x, int center_y, int radius_
 
 			if(distance_to_x * distance_to_x * ryry + distance_to_y * distance_to_y * rxrx > rxrxryry) continue;
 
-			screen.pixels[x + screen.width * y] = color;
+			screen.pixels[x + screen.stride * y] = color;
 		}
 	}
 }
@@ -253,7 +266,7 @@ void fix_draw_line(fix_screen screen, int start_x, int start_y, int end_x, int e
 			if(y < 0) continue;
 			int x = distance_x * (y - y0) / distance_y + x0;
 			if(x < 0 || x >= (int)screen.width) continue;
-			screen.pixels[x + screen.width * y] = color;
+			screen.pixels[x + screen.stride * y] = color;
 		}
 		return;
 	}
@@ -274,7 +287,7 @@ void fix_draw_line(fix_screen screen, int start_x, int start_y, int end_x, int e
 		if(x < 0) continue;
 		int y = distance_y * (x - x0)/ distance_x + y0;
 		if(y < 0 || y >= (int)screen.height) continue;
-		screen.pixels[x + screen.width * y] = color;
+		screen.pixels[x + screen.stride * y] = color;
 	}
 }
 
@@ -359,7 +372,7 @@ void fix_draw_triangle(fix_screen screen, int first_x, int first_y, int second_x
 
 			if(triangle_area != pbc_area + pac_area + pab_area) continue;
 
-			screen.pixels[x + screen.width * y] = color;
+			screen.pixels[x + screen.stride * y] = color;
 		}
 	}
 }
@@ -406,14 +419,13 @@ void fix_draw_image(fix_screen screen, int x, int y, int w, int h, fix_screen sr
 
 			int src_x = (x - x0) * src.width / w;
 
-			if(src.pixels[src_x + src.width * src_y] == 0) continue; //HACK(Fix): This is a quick Hack-around to skip blank pixels, todo blending
-			screen.pixels[x + screen.width * y] = src.pixels[src_x + src.width * src_y];
+			if(src.pixels[src_x + src.stride * src_y] == 0) continue; //HACK(Fix): This is a quick Hack-around to skip blank pixels, todo blending
+			screen.pixels[x + screen.stride * y] = src.pixels[src_x + src.stride * src_y];
 		}
 	}
 }
 
 #endif //FIX_DRAW_IMPL
-
 
 #ifdef _cplusplus
 }
