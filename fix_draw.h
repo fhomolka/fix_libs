@@ -61,7 +61,15 @@ fix_screen fix_draw_make_screen(uint32_t *pixels, unsigned int width, unsigned i
 /* Clears the screen using the recieved colour */
 void fix_draw_clear(fix_screen screen, uint32_t color);
 /* Sets a pixel to the given colour */
+
+#ifdef FIX_DRAW_NONSTATIC_DRAW_PIXEL
 void fix_draw_pixel(fix_screen screen, unsigned int x, unsigned int y, uint32_t color);
+#else 
+static inline void fix_draw_pixel(fix_screen screen, unsigned int x, unsigned int y, uint32_t color)
+{
+	screen.pixels[x + screen.stride * y] = color;
+}
+#endif //FIX_DRAW_NONSTATIC_DRAW_PIXEL
 /* Draws a rectangle with the given colour */
 void fix_draw_rect(fix_screen screen, int x, int y, int w, int h, uint32_t color);
 /* Draws a circle with the given colour */
@@ -161,10 +169,12 @@ void fix_draw_clear(fix_screen screen, uint32_t color)
 }
 
 //NOTE(Fix): This is so simple, it could likely go into the header and have it be static inline
+#ifdef FIX_DRAW_NONSTATIC_DRAW_PIXEL
 void fix_draw_pixel(fix_screen screen, unsigned int x, unsigned int y, uint32_t color)
 {
 	screen.pixels[x + screen.stride * y] = color;
 }
+#endif
 
 void fix_draw_rect(fix_screen screen, int x, int y, int w, int h, uint32_t color)
 {
