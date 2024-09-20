@@ -45,8 +45,7 @@ unsigned char fix_rng_get_u8(fix_rng_state *s)
 
 signed char fix_rng_get_i8(fix_rng_state *s)
 {
-	void *ret = (void*)fix_rng_get_u8(s);
-	return (signed char)ret;
+	return (signed char)fix_rng_get_u8(s);
 }
 
 float fix_rng_get_f32(fix_rng_state *s)
