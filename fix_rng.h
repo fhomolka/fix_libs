@@ -39,7 +39,7 @@ void fix_rng_set_seed(fix_rng_state *s, int seed)
 
 unsigned char fix_rng_get_u8(fix_rng_state *s)
 {
-	*s += 1 % 255;
+	*s = (*s + 1) % 255;
 	return fix_rng_table[*s];
 }
 
