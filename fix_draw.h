@@ -168,7 +168,26 @@ void fix_draw_clear(fix_screen screen, uint32_t color)
 	}
 }
 
-//NOTE(Fix): This is so simple, it could likely go into the header and have it be static inline
+//Blends two ABGR colors
+uint32_t fix_draw_blend_ABGR(uint32_t first, uint32_t second)
+{
+	uint32_t r1 = (first & 0xFF000000) >> 24;
+	uint32_t g1 = (first & 0x00FF0000) >> 16;
+	uint32_t b1 = (first & 0x0000FF00) >> 8;
+	uint32_t a1 = (first & 0x000000FF) >> 0;
+
+	uint32_t r2 = (second & 0xFF000000) >> 24;
+	uint32_t g2 = (second & 0x00FF0000) >> 16;
+	uint32_t b2 = (second & 0x0000FF00) >> 8;
+	uint32_t a2 = (second & 0x000000FF) >> 0;
+
+	uint32_t r = (r1 * (255 - a2) + r2 * a2) / 255; if (r > 255) r = 255;
+	uint32_t g = (g1 * (255 - a2) + g2 * a2) / 255; if (g > 255) g = 255;
+	uint32_t b = (b1 * (255 - a2) + b2 * a2) / 255; if (b > 255) b = 255;
+
+	return (r << 24) | (g << 16) | (b << 8) | (a1 << 0);
+}
+
 #ifdef FIX_DRAW_NONSTATIC_DRAW_PIXEL
 void fix_draw_pixel(fix_screen screen, unsigned int x, unsigned int y, uint32_t color)
 {
