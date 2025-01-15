@@ -29,6 +29,7 @@ extern "C" {
 #define fix_sqrtf sqrtf
 #define fix_sinf sinf
 #define fix_cosf cosf
+#define fix_roundf roundf
 
 #define fix_sign(n) ((n > 0) - (n < 0))
 #define fix_signf(n) (float)((n > 0.0f) - (n < 0.0f))
