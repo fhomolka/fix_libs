@@ -152,6 +152,12 @@ static inline fix_vec2 fix_vec2_sign(fix_vec2 vec)
 	return (fix_vec2){fix_signf(vec.x), fix_signf(vec.y)};
 }
 
+static inline fix_vec2 fix_vec2_round(fix_vec2 vec)
+{
+	return (fix_vec2){fix_roundf(vec.x), fix_roundf(vec.y)};
+}
+
+// vec has to be normalized
 static inline fix_vec2 fix_vec2_snap45(fix_vec2 vec)
 {
 	//Thanks to Inigo Quilez
