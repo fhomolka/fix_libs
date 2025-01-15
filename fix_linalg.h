@@ -142,6 +142,36 @@ static inline fix_vec2 fix_vec2_rot(fix_vec2 vec, float angle)
 	}};
 }
 
+static inline fix_vec2 fix_vec2_sign(fix_vec2 vec)
+{
+	return (fix_vec2){fix_signf(vec.x), fix_signf(vec.y)};
+}
+
+static inline fix_vec2 fix_vec2_snap45(fix_vec2 vec)
+{
+	//Thanks to Inigo Quilez
+	////https://twitter.com/iquilezles/status/1878967410272965053
+	#define COS_PI_DIV_8   ((float) 0.92387953) //cos(π/8)
+	#define COS_3PI_DIV_8  ((float) 0.38268343) //cos(3π/8)
+	#define ONE_OVER_ROOT_OF_2 ((float) 0.70710670) //1/sqrt(2)
+
+	fix_vec2 s = fix_vec2_sign(vec);
+	float x = fix_fabsf(vec.x);
+
+	if (x > COS_PI_DIV_8)
+	{
+		return (fix_vec2){s.x, 0.0};
+	}
+
+	if (x > COS_3PI_DIV_8)
+	{
+		return (fix_vec2){s.x * ONE_OVER_ROOT_OF_2, s.y * ONE_OVER_ROOT_OF_2}; 
+	}
+
+	return {0.0, s.y};
+}
+
+
 // Vec3
 union fix_vec3_u 
 {
@@ -606,7 +636,6 @@ static inline uint32_t fix_rgba2abgr32(fix_rgba c)
 
 	return r + (g >> 8) + (b >> 16) + (a >> 24);
 }
-
 
 #ifdef _cplusplus
 }
