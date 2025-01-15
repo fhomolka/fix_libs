@@ -30,6 +30,9 @@ extern "C" {
 #define fix_sinf sinf
 #define fix_cosf cosf
 
+#define fix_sign(n) ((n > 0) - (n < 0))
+#define fix_signf(n) (float)((n > 0.0f) - (n < 0.0f))
+
 #ifdef __USE_GNU
 #define fix_PIf M_PIf
 #else //__USE_GNU
