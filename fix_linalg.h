@@ -149,12 +149,12 @@ static inline fix_vec2 fix_vec2_rot(fix_vec2 vec, float angle)
 
 static inline fix_vec2 fix_vec2_sign(fix_vec2 vec)
 {
-	return (fix_vec2){fix_signf(vec.x), fix_signf(vec.y)};
+	return (fix_vec2){{fix_signf(vec.x), fix_signf(vec.y)}};
 }
 
 static inline fix_vec2 fix_vec2_round(fix_vec2 vec)
 {
-	return (fix_vec2){fix_roundf(vec.x), fix_roundf(vec.y)};
+	return (fix_vec2){{fix_roundf(vec.x), fix_roundf(vec.y)}};
 }
 
 // vec has to be normalized
@@ -162,10 +162,10 @@ static inline fix_vec2 fix_vec2_snap45(fix_vec2 vec)
 {
 	//Thanks to Inigo Quilez
 	//https://twitter.com/iquilezles/status/1879398098436538614
-	fix_vec2 w = fix_vec2_round((fix_vec2){vec.x * fix_SQRT2f, vec.y * fix_SQRT2f});
+	fix_vec2 w = fix_vec2_round((fix_vec2){{vec.x * fix_SQRT2f, vec.y * fix_SQRT2f}});
 	if (fix_fabsf(vec.x) + fix_fabsf(vec.y) > 1.5)
 	{
-		return (fix_vec2){w.x * fix_SQRT1_2f, w.y * fix_SQRT1_2f};
+		return (fix_vec2){{w.x * fix_SQRT1_2f, w.y * fix_SQRT1_2f}};
 	}
 
 	return w;
