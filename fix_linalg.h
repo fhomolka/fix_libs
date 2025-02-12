@@ -36,12 +36,14 @@ extern "C" {
 
 #ifdef __USE_GNU
 #define fix_PIf M_PIf
+#define fix_PI_2f M_PI_2f
 #define fix_SQRT2f M_SQRT2f
 #define fix_SQRT1_2f M_SQRT1_2f
 #else //__USE_GNU
 #define fix_PIf ((float)M_PI)
 #define fix_SQRT2f ((float)M_SQRT2)
 #define fix_SQRT1_2f ((float)M_SQRT1_2)
+#define fix_PI_2f ((float)M_PI_2)
 #endif //__USE_GNU
 #endif //FIX_LINALG_CUSTOM_MATH
 
