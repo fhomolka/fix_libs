@@ -40,10 +40,10 @@ extern "C" {
 #define fix_SQRT2f M_SQRT2f
 #define fix_SQRT1_2f M_SQRT1_2f
 #else //__USE_GNU
-#define fix_PIf ((float)M_PI)
-#define fix_SQRT2f ((float)M_SQRT2)
-#define fix_SQRT1_2f ((float)M_SQRT1_2)
-#define fix_PI_2f ((float)M_PI_2)
+#define fix_PIf 3.14159265358979323846f
+#define fix_SQRT2f 1.41421356237309504880f
+#define fix_SQRT1_2f 0.70710678118654752440f
+#define fix_PI_2f 1.57079632679489661923f
 #endif //__USE_GNU
 #endif //FIX_LINALG_CUSTOM_MATH
 
