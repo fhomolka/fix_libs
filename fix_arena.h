@@ -19,9 +19,15 @@
 extern "C"{
 #endif //_cplusplus
 
-//TODO(Fix): Maybe take in a pre-prepared buffer?
+#ifndef FIX_ARENA_MALLOC
 #include <stdlib.h> 
+#define FIX_ARENA_MALLOC malloc
+#define FIX_ARENA_FREE free
+#endif //FIX_ARENA_MALLOC
+#ifndef FIX_ARENA_MEMSET
 #include <string.h>
+#define FIX_ARENA_MEMSET memset
+#endif
 
 struct fix_arena_s
 {
@@ -32,17 +38,32 @@ struct fix_arena_s
 typedef struct fix_arena_s fix_arena;
 
 //Mallocs a chunk of memory and sets it as the arena's memory
-static inline void fix_arena_init(fix_arena *arena, unsigned int size)
+static inline void fix_arena_init(fix_arena *arena, unsigned int size, unsigned char *buffer)
 {
-	arena->memory = (unsigned char *)malloc(size);
+	arena->memory = buffer;
+	arena->size = size;
+	arena->offset = 0;
+}
+
+//Sets all arena info to zero, doesn't destroy the memory
+static inline void fix_arena_destroy(fix_arena *arena)
+{
+	arena->size = 0;
+	arena->offset = 0;
+}
+
+//Mallocs a chunk of memory and sets it as the arena's memory
+static inline void fix_arena_malloc_init(fix_arena *arena, unsigned int size)
+{
+	arena->memory = (unsigned char *)FIX_ARENA_MALLOC(size);
 	arena->size = size;
 	arena->offset = 0;
 }
 
 //Frees the malloc'ed memory, and sets all arena info to zero
-static inline void fix_arena_destroy(fix_arena *arena)
+static inline void fix_arena_free_destroy(fix_arena *arena)
 {
-	free(arena->memory);
+	FIX_ARENA_FREE(arena->memory);
 	arena->size = 0;
 	arena->offset = 0;
 }
@@ -50,7 +71,7 @@ static inline void fix_arena_destroy(fix_arena *arena)
 //Zeroes-out the memory, returns the offset to the start of the memory
 static inline void fix_arena_zero(fix_arena *arena)
 {
-	memset(arena->memory, 0, arena->size);
+	FIX_ARENA_MEMSET(arena->memory, 0, arena->size);
 	arena->offset = 0;
 }
 
