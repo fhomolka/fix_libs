@@ -59,6 +59,20 @@ static inline float fix_rad2deg(float radians)
 	return radians * (180.0f / fix_PIf);
 }
 
+// Interpolations Extrapolations
+static inline float fix_lerp(float start, float end, float t)
+{
+    return start + t * (end - start);
+}
+
+static inline float fix_bezier_lerp(float start, float end, float control, float t)
+{
+	float p1 = fix_lerp(start, control, t);
+	float p2 = fix_lerp(control, end, t);
+	float r = fix_lerp(p1, p2, t);
+	return r;
+}
+
 // Vec2
 union fix_vec2_u 
 {
@@ -157,6 +171,23 @@ static inline fix_vec2 fix_vec2_sign(fix_vec2 vec)
 static inline fix_vec2 fix_vec2_round(fix_vec2 vec)
 {
 	return (fix_vec2){{fix_roundf(vec.x), fix_roundf(vec.y)}};
+}
+
+static inline fix_vec2 fix_vec2_lerp(fix_vec2 start, fix_vec2 end, float t)
+{
+	return (fix_vec2)
+	{
+		.x = fix_lerp(start.x, end.x, t),
+		.y = fix_lerp(start.y, end.y, t),
+	};
+}
+
+static inline fix_vec2 fix_vec2_bezier_lerp(fix_vec2 start, fix_vec2 end, fix_vec2 control, float t)
+{
+	fix_vec2 p1 = fix_vec2_lerp(start, control, t);
+	fix_vec2 p2 = fix_vec2_lerp(control, end, t);
+	fix_vec2 r = fix_vec2_lerp(p1, p2, t);
+	return r;
 }
 
 // vec has to be normalized
@@ -277,6 +308,24 @@ static inline fix_vec3 fix_vec3_cross(fix_vec3 lhs, fix_vec3 rhs)
 	}};
 }
 
+static inline fix_vec3 fix_vec3_lerp(fix_vec3 start, fix_vec3 end, float t)
+{
+	return (fix_vec3)
+	{
+		.x = fix_lerp(start.x, end.x, t),
+		.y = fix_lerp(start.y, end.y, t),
+		.z = fix_lerp(start.z, end.z, t),
+	};
+}
+
+static inline fix_vec3 fix_vec3_bezier_lerp(fix_vec3 start, fix_vec3 end, fix_vec3 control, float t)
+{
+	fix_vec3 p1 = fix_vec3_lerp(start, control, t);
+	fix_vec3 p2 = fix_vec3_lerp(control, end, t);
+	fix_vec3 r = fix_vec3_lerp(p1, p2, t);
+	return r;
+}
+
 // Vec4
 union fix_vec4_u 
 {
@@ -373,6 +422,25 @@ static inline float fix_vec4_mag(fix_vec4 vec)
 static inline float fix_vec4_distance(fix_vec4 lhs, fix_vec4 rhs)
 {
 	return fix_vec4_mag(fix_vec4_sub(rhs, lhs));
+}
+
+static inline fix_vec4 fix_vec4_lerp(fix_vec4 start, fix_vec4 end, float t)
+{
+	return (fix_vec4)
+	{
+		.x = fix_lerp(start.x, end.x, t),
+		.y = fix_lerp(start.y, end.y, t),
+		.z = fix_lerp(start.z, end.z, t),
+		.w = fix_lerp(start.w, end.w, t),
+	};
+}
+
+static inline fix_vec4 fix_vec4_bezier_lerp(fix_vec4 start, fix_vec4 end, fix_vec4 control, float t)
+{
+	fix_vec4 p1 = fix_vec4_lerp(start, control, t);
+	fix_vec4 p2 = fix_vec4_lerp(control, end, t);
+	fix_vec4 r = fix_vec4_lerp(p1, p2, t);
+	return r;
 }
 
 // Mat2
