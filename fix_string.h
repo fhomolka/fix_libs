@@ -1,5 +1,5 @@
 /* fix_string.h
-* License: Public Domain or zlib
+* License: Your choice between Public Domain or BSD0
 * 
 * To use this library, remember to define FIX_STRING_IMPL in ONE C or C++ file:
 * #define FIX_STRING_IMPL
