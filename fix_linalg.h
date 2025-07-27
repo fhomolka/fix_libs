@@ -645,17 +645,77 @@ static inline fix_mat4 fix_mat4_ortho(float left, float right, float bottom, flo
 	}};
 }
 
-static inline fix_mat4 fix_mat4_perspective(float fov_y, float aspect, float near, float far)
+static inline fix_mat4 fix_mat4_perspective_rh(float fov_y, float aspect, float near, float far)
 {
 	float f = 1.0f / tanf(fov_y / 2.0f);
+	float one__near_m_far = 1.0f / (near - far);
+
 	return (fix_mat4)
 	{{
-		f / aspect,	0.0f, 0.0f,							0.0f,
-		0.0f,		f,	  0.0f,							0.0f,
-		0.0f,		0.0f, (near + far) / (near - far), -2.0f * ((near * far) / (near - far)),
-		0.0f,		0.0f, -1.0f, 						0.0f,
+		f / aspect,	0.0f, 0.0f,									   0.0f,
+		0.0f,		f,	  0.0f,									   0.0f,
+		0.0f,		0.0f, (near + far) * one__near_m_far, 		  -1.0f,
+		0.0f,		0.0f, 2.0f * ((near * far) * one__near_m_far), 0.0f,
 	}};
 }
+
+static inline fix_mat4 fix_mat4_perspective_lh(float fov_y, float aspect, float near, float far)
+{
+	float f = 1.0f / tanf(fov_y / 2.0f);
+	float one__near_m_far = 1.0f / (near - far);
+
+	return (fix_mat4)
+	{{
+		f / aspect,	0.0f, 0.0f,									   0.0f,
+		0.0f,		f,	  0.0f,									   0.0f,
+		0.0f,		0.0f, -(near + far) * one__near_m_far, 		  1.0f,
+		0.0f,		0.0f, 2.0f * ((near * far) * one__near_m_far), 0.0f,
+	}};
+}
+#define fix_mat4_perspective fix_mat4_perspective_lh
+
+static inline fix_mat4 fix_mat4_look_at_rh(fix_vec3 eye, fix_vec3 centre, fix_vec3 up)
+{
+	fix_vec3 f = fix_vec3_normalise(fix_vec3_sub(centre, eye));
+	fix_vec3 s = fix_vec3_normalise(fix_vec3_cross(f, up));
+	fix_vec3 u = fix_vec3_cross(s, f);
+
+	float fe = fix_vec3_dot(f, eye);
+	float ue = fix_vec3_dot(u, eye);
+	float se = fix_vec3_dot(s, eye);
+
+	return (fix_mat4)
+	{{
+		+s.x, +u.x, -f.x, 0.0f,
+		+s.y, +u.y, -f.y, 0.0f,
+		+s.z, +u.z, -f.z, 0.0f,
+		-se, -ue, +fe, 1.0f,
+	}};
+}
+
+static inline fix_mat4 fix_mat4_look_at_lh(fix_vec3 eye, fix_vec3 centre, fix_vec3 up)
+{
+	fix_vec3 f = fix_vec3_normalise(fix_vec3_sub(eye, centre));
+	fix_vec3 s = fix_vec3_normalise(fix_vec3_cross(f, up));
+	fix_vec3 u = fix_vec3_cross(s, f);
+
+	float fe = fix_vec3_dot(f, eye);
+	float ue = fix_vec3_dot(u, eye);
+	float se = fix_vec3_dot(s, eye);
+
+	return (fix_mat4)
+	{{
+		+s.x, +u.x, -f.x, 0.0f,
+		+s.y, +u.y, -f.y, 0.0f,
+		+s.z, +u.z, -f.z, 0.0f,
+		-se, -ue, +fe, 1.0f,
+	}};
+}
+#define fix_mat4_look_at fix_mat4_look_at_lh
+
+// Quaternion
+
+
 
 // Extras
 
