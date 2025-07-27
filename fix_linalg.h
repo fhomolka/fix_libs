@@ -29,6 +29,7 @@ extern "C" {
 #define fix_sqrtf sqrtf
 #define fix_sinf sinf
 #define fix_cosf cosf
+#define fix_tanf tanf
 #define fix_roundf roundf
 
 #define fix_sign(n) ((n > 0) - (n < 0))
@@ -647,7 +648,7 @@ static inline fix_mat4 fix_mat4_ortho(float left, float right, float bottom, flo
 
 static inline fix_mat4 fix_mat4_perspective_rh(float fov_y, float aspect, float near, float far)
 {
-	float f = 1.0f / tanf(fov_y / 2.0f);
+	float f = 1.0f / fix_tanf(fov_y / 2.0f);
 	float one__near_m_far = 1.0f / (near - far);
 
 	return (fix_mat4)
@@ -661,7 +662,7 @@ static inline fix_mat4 fix_mat4_perspective_rh(float fov_y, float aspect, float 
 
 static inline fix_mat4 fix_mat4_perspective_lh(float fov_y, float aspect, float near, float far)
 {
-	float f = 1.0f / tanf(fov_y / 2.0f);
+	float f = 1.0f / fix_tanf(fov_y / 2.0f);
 	float one__near_m_far = 1.0f / (near - far);
 
 	return (fix_mat4)
