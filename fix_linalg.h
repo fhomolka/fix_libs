@@ -600,20 +600,20 @@ static inline fix_mat4 fix_mat4_mul(fix_mat4 lhs, fix_mat4 rhs)
 {
 	return (fix_mat4)
 	{{
-		lhs.m[0] * rhs.m[0] + lhs.m[1] * rhs.m[4] + lhs.m[2] * rhs.m[8]  + lhs.m[3] * rhs.m[12],
-		lhs.m[0] * rhs.m[1] + lhs.m[1] * rhs.m[5] + lhs.m[2] * rhs.m[9]  + lhs.m[3] * rhs.m[13],
-		lhs.m[0] * rhs.m[2] + lhs.m[1] * rhs.m[6] + lhs.m[2] * rhs.m[10] + lhs.m[3] * rhs.m[14],
-		lhs.m[0] * rhs.m[3] + lhs.m[1] * rhs.m[7] + lhs.m[2] * rhs.m[11] + lhs.m[3] * rhs.m[15],
+		lhs.m[0]  * rhs.m[0] + lhs.m[1]  * rhs.m[4] + lhs.m[2]  * rhs.m[8]  + lhs.m[3]  * rhs.m[12],
+		lhs.m[0]  * rhs.m[1] + lhs.m[1]  * rhs.m[5] + lhs.m[2]  * rhs.m[9]  + lhs.m[3]  * rhs.m[13],
+		lhs.m[0]  * rhs.m[2] + lhs.m[1]  * rhs.m[6] + lhs.m[2]  * rhs.m[10] + lhs.m[3]  * rhs.m[14],
+		lhs.m[0]  * rhs.m[3] + lhs.m[1]  * rhs.m[7] + lhs.m[2]  * rhs.m[11] + lhs.m[3]  * rhs.m[15],
 
-		lhs.m[4] * rhs.m[0] + lhs.m[5] * rhs.m[4] + lhs.m[6] * rhs.m[8]  + lhs.m[7] * rhs.m[12],
-		lhs.m[4] * rhs.m[1] + lhs.m[5] * rhs.m[5] + lhs.m[6] * rhs.m[9]  + lhs.m[7] * rhs.m[13],
-		lhs.m[4] * rhs.m[2] + lhs.m[5] * rhs.m[6] + lhs.m[6] * rhs.m[10] + lhs.m[7] * rhs.m[14],
-		lhs.m[4] * rhs.m[3] + lhs.m[5] * rhs.m[7] + lhs.m[6] * rhs.m[11] + lhs.m[7] * rhs.m[15],
+		lhs.m[4]  * rhs.m[0] + lhs.m[5]  * rhs.m[4] + lhs.m[6]  * rhs.m[8]  + lhs.m[7]  * rhs.m[12],
+		lhs.m[4]  * rhs.m[1] + lhs.m[5]  * rhs.m[5] + lhs.m[6]  * rhs.m[9]  + lhs.m[7]  * rhs.m[13],
+		lhs.m[4]  * rhs.m[2] + lhs.m[5]  * rhs.m[6] + lhs.m[6]  * rhs.m[10] + lhs.m[7]  * rhs.m[14],
+		lhs.m[4]  * rhs.m[3] + lhs.m[5]  * rhs.m[7] + lhs.m[6]  * rhs.m[11] + lhs.m[7]  * rhs.m[15],
 
-		lhs.m[8] * rhs.m[0] + lhs.m[9] * rhs.m[4] + lhs.m[10] * rhs.m[8]  + lhs.m[11] * rhs.m[12],
-		lhs.m[8] * rhs.m[1] + lhs.m[9] * rhs.m[5] + lhs.m[10] * rhs.m[9]  + lhs.m[11] * rhs.m[13],
-		lhs.m[8] * rhs.m[2] + lhs.m[9] * rhs.m[6] + lhs.m[10] * rhs.m[10] + lhs.m[11] * rhs.m[14],
-		lhs.m[8] * rhs.m[3] + lhs.m[9] * rhs.m[7] + lhs.m[10] * rhs.m[11] + lhs.m[11] * rhs.m[15],
+		lhs.m[8]  * rhs.m[0] + lhs.m[9]  * rhs.m[4] + lhs.m[10] * rhs.m[8]  + lhs.m[11] * rhs.m[12],
+		lhs.m[8]  * rhs.m[1] + lhs.m[9]  * rhs.m[5] + lhs.m[10] * rhs.m[9]  + lhs.m[11] * rhs.m[13],
+		lhs.m[8]  * rhs.m[2] + lhs.m[9]  * rhs.m[6] + lhs.m[10] * rhs.m[10] + lhs.m[11] * rhs.m[14],
+		lhs.m[8]  * rhs.m[3] + lhs.m[9]  * rhs.m[7] + lhs.m[10] * rhs.m[11] + lhs.m[11] * rhs.m[15],
 
 		lhs.m[12] * rhs.m[0] + lhs.m[13] * rhs.m[4] + lhs.m[14] * rhs.m[8]  + lhs.m[15] * rhs.m[12],
 		lhs.m[12] * rhs.m[1] + lhs.m[13] * rhs.m[5] + lhs.m[14] * rhs.m[9]  + lhs.m[15] * rhs.m[13],
